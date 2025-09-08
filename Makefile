@@ -1,6 +1,9 @@
 NAME = computor
 CXX = c++
 
+# dev
+# CPP_FLAGS = -Wall -Wextra -Werror -std=c++11 -Wno-unused -Wno-unused-parameter
+
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++11
 
 SRC_DIR = src
