@@ -11,7 +11,7 @@ public:
     Polynomial &operator=(const Polynomial &obj);
 
 private:
-    double determinant;
+    double discriminant;
 };
 
 #endif

@@ -9,6 +9,6 @@ Polynomial::Polynomial(const Polynomial &obj) {
 
 Polynomial &Polynomial::operator=(const Polynomial &obj)
 {
-    this->determinant = obj.determinant;
+    this->discriminant = obj.discriminant;
     return *this;
 }
