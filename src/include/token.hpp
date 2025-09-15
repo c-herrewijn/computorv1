@@ -17,7 +17,8 @@ public:
 	~Token();
 	Token &operator=(const Token &obj);
 
-	void print();
+	void print() const;
+	std::string to_string() const;
 	static std::vector<Token> tokenize(std::string in_str);
 
 	TokenType type;

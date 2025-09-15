@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <string>
 
 /*
 constructors
@@ -31,26 +32,27 @@ Token &Token::operator=(const Token &obj) {
 /*
 member functions
 */
-void Token::print() {
+std::string Token::to_string() const {
+	std::string str = "";
 	if (type == SYMBOL) {
 		switch (symbol) {
 		case PLUS_SYMBOL:
-			std::cout << '+';
+			str += '+';
 			break;
 		case MINUS_SYMBOL:
-			std::cout << '-';
+			str += '-';
 			break;
 		case STAR_SYMBOL:
-			std::cout << '*';
+			str += '*';
 			break;
 		case POWER_SYMBOL:
-			std::cout << '^';
+			str += '^';
 			break;
 		case EQUALS_SYMBOL:
-			std::cout << '=';
+			str += '=';
 			break;
 		case X_CHAR:
-			std::cout << 'x';
+			str += 'x';
 			break;
 		case NON_SYMBOL:
 			std::cout <<
@@ -63,8 +65,13 @@ void Token::print() {
 		}
 	}
 	if (type == NUMBER) {
-		std::cout << number;
+		str = std::to_string(number);
 	}
+	return str;
+}
+
+void Token::print() const {
+	std::cout << this->to_string();
 }
 
 /*
