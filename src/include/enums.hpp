@@ -20,7 +20,7 @@ enum TokenType {
 };
 
 enum TokenizerState {
-	NEWTOKEN,
+	NEW_TOKEN,
 	READING_NUMBER
 };
 

@@ -1,4 +1,5 @@
 #include "token.hpp"
+#include "utils.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -77,7 +78,7 @@ std::vector<Token> Token::tokenize(std::string in_str) {
 	std::vector<Token> tokens;
 
 	// state
-	TokenizerState state = NEWTOKEN;
+	TokenizerState state = NEW_TOKEN;
 	size_t idx_num_start;
 	size_t idx_num_length = 0;
 
@@ -85,7 +86,7 @@ std::vector<Token> Token::tokenize(std::string in_str) {
 	for (size_t idx_str = 0; idx_str < str_len; idx_str++) {
 		char c = in_str[idx_str];
 		switch (state) {
-		case NEWTOKEN:
+		case NEW_TOKEN:
 			if (c == ' ') {}
 			else if (std::isdigit(c)) {
 				idx_num_start = idx_str;
@@ -100,14 +101,14 @@ std::vector<Token> Token::tokenize(std::string in_str) {
 				std::string num_str{in_str, idx_num_start, idx_num_length};
 				tokens.emplace_back(Token(num_str));
 				idx_num_length=0;
-				state = NEWTOKEN;
+				state = NEW_TOKEN;
 			} else if (std::isdigit(c)) {
 				idx_num_length++;
 			} else {
 				std::string num_str{in_str, idx_num_start, idx_num_length};
 				tokens.emplace_back(Token(num_str));
 				idx_num_length=0;
-				state = NEWTOKEN;
+				state = NEW_TOKEN;
 				tokens.emplace_back(Token(c));
 			}
 			break;
