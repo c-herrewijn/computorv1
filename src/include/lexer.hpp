@@ -27,22 +27,21 @@ enum TokenizerState {
 	READING_NUMBER
 };
 
-
 struct Token {
 	TokenType type;
 	TokenSymbol symbol;
 	int number;
 
-    Token(TokenType t, TokenSymbol s, int n) : type(t), symbol(s), number(n) {}
+	Token(TokenType t, TokenSymbol s, int n) : type(t), symbol(s), number(n) {}
 
-    Token(char c) : Token::Token(SYMBOL, _charcter_to_symbol(c), -1) {}
-    Token(size_t n): Token::Token(NUMBER, NON_SYMBOL, n) {}
-    Token(std::string number_str);
+	Token(char c) : Token::Token(SYMBOL, _charcter_to_symbol(c), -1) {}
+	Token(size_t n): Token::Token(NUMBER, NON_SYMBOL, n) {}
+	Token(std::string number_str);
 
-    // todo: make private, e.g. convert to class
-    TokenSymbol _charcter_to_symbol(char c);
+	// todo: make private, e.g. convert to class
+	TokenSymbol _charcter_to_symbol(char c);
 
-    void print();
+	void print();
 };
 
 std::vector<Token> tokenize(std::string in_str);

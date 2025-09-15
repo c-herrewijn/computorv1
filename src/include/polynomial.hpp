@@ -5,13 +5,13 @@
 
 class Polynomial {
 public:
-    Polynomial();
-    Polynomial(const Polynomial &obj);
-    ~Polynomial();
-    Polynomial &operator=(const Polynomial &obj);
+	Polynomial();
+	Polynomial(const Polynomial &obj);
+	~Polynomial();
+	Polynomial &operator=(const Polynomial &obj);
 
 private:
-    double discriminant;
+	double discriminant;
 };
 
 #endif

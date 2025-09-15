@@ -31,4 +31,7 @@ fclean: clean
 
 re: fclean all
 
+format:
+	astyle --options=formatter.txt ./*.cpp,*.hpp
+
 .PHONY: all clean fclean re

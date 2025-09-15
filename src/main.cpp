@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
 	// a = symbol_to_token('w'); //fails
 	// std::cout << a.symbol << std::endl;
 
-
 	// tests create_number_token("1234", 0, 4);
 	// Token b;
 	// b = create_number_token("1234", 0, 4);
@@ -37,7 +36,6 @@ int main(int argc, char *argv[]) {
 	// std::cout << b.number << std::endl;
 	// b = create_number_token("aa91474836470aa", 2, 10);
 	// std::cout << b.number << std::endl;
-
 
 	// test tokenize
 	std::cout << "tokens: " << std::endl;
