@@ -1,5 +1,35 @@
-#include "lexer.hpp"
+#include "token.hpp"
 
+#include <cassert>
+#include <iostream>
+
+/*
+constructors
+*/
+Token::Token(TokenType t, TokenSymbol s, int n) : type(t), symbol(s),
+	number(n) {}
+Token::Token(char c) : Token::Token(SYMBOL, charcter_to_symbol(c), -1) {}
+Token::Token(size_t n): Token::Token(NUMBER, NON_SYMBOL, n) {}
+Token::Token(std::string number_str) : type(NUMBER), symbol(NON_SYMBOL),
+	number(str_to_int(number_str)) {}
+Token::Token(const Token &obj) {
+	*this = obj;
+}
+Token::~Token() {}
+
+/*
+operators
+*/
+Token &Token::operator=(const Token &obj) {
+	this->type = obj.type;
+	this->symbol = obj.symbol;
+	this->number = obj.number;
+	return *this;
+}
+
+/*
+member functions
+*/
 void Token::print() {
 	if (type == SYMBOL) {
 		switch (symbol) {
@@ -23,7 +53,7 @@ void Token::print() {
 			break;
 		case NON_SYMBOL:
 			std::cout <<
-			          "invalid token: TokenType symbol can not be combined with symbol NON_SYMBOL" <<
+			          "invalid token: TokenType SYMBOL can not be combined with symbol NON_SYMBOL" <<
 			          std::endl;
 			exit(EXIT_FAILURE);
 		default:
@@ -36,51 +66,10 @@ void Token::print() {
 	}
 }
 
-TokenSymbol Token::_charcter_to_symbol(char c) {
-	assert(std::isdigit(c) == false);
-	switch (c) {
-	case '+':
-		return PLUS_SYMBOL;
-	case '-':
-		return MINUS_SYMBOL;
-	case '*':
-		return STAR_SYMBOL;
-	case '^':
-		return POWER_SYMBOL;
-	case '=':
-		return EQUALS_SYMBOL;
-	case 'X':
-		return X_CHAR;
-	case 'x':
-		return X_CHAR;
-	default:
-		std::cout << "invalid symbol in equation: '" << c << "'" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-}
-
-Token::Token(std::string number_str) {
-	if (number_str.size() > 11) { // 10 chars for max_int + 1 char for minus sign
-		// not numbers like 00000000000000042 might not be too large, after all
-		std::cout << "number in equation to large: '" << number_str << "'" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	long long_num = std::stol(number_str);
-	if (long_num > std::numeric_limits<int>::max()) {
-		std::cout << "number in equation to large: '" << number_str << "'" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	if (long_num < std::numeric_limits<int>::min()) {
-		std::cout << "number in equation to small: '" << number_str << "'" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	int num = static_cast<int>(long_num);
-	this->type = NUMBER;
-	this->symbol = NON_SYMBOL;
-	this->number = num;
-}
-
-std::vector<Token> tokenize(std::string in_str) {
+/*
+static functions
+*/
+std::vector<Token> Token::tokenize(std::string in_str) {
 	// input
 	size_t str_len = in_str.size();
 
@@ -134,4 +123,27 @@ std::vector<Token> tokenize(std::string in_str) {
 		tokens.emplace_back(Token(num_str));
 	}
 	return tokens;
+}
+
+TokenSymbol Token::charcter_to_symbol(char c) {
+	assert(std::isdigit(c) == false);
+	switch (c) {
+	case '+':
+		return PLUS_SYMBOL;
+	case '-':
+		return MINUS_SYMBOL;
+	case '*':
+		return STAR_SYMBOL;
+	case '^':
+		return POWER_SYMBOL;
+	case '=':
+		return EQUALS_SYMBOL;
+	case 'X':
+		return X_CHAR;
+	case 'x':
+		return X_CHAR;
+	default:
+		std::cout << "invalid symbol in equation: '" << c << "'" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 }

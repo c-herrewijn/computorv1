@@ -10,7 +10,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 INCL_DIR = src/include
 
-SRCS = main.cpp polynomial.cpp lexer.cpp
+SRCS = main.cpp polynomial.cpp token.cpp utils.cpp
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 
