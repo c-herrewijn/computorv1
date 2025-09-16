@@ -8,11 +8,11 @@
 /*
 constructors
 */
-Token::Token(TokenType t, TokenSymbol s, int n) : type(t), symbol(s),
+Token::Token(const TokenType t, const TokenSymbol s, const int n) : type(t), symbol(s),
 	number(n) {}
-Token::Token(char c) : Token::Token(SYMBOL, charcter_to_symbol(c), -1) {}
-Token::Token(size_t n): Token::Token(NUMBER, NON_SYMBOL, n) {}
-Token::Token(std::string number_str) : type(NUMBER), symbol(NON_SYMBOL),
+Token::Token(const char c) : Token::Token(SYMBOL, charcter_to_symbol(c), -1) {}
+Token::Token(const size_t n): Token::Token(NUMBER, NON_SYMBOL, n) {}
+Token::Token(const std::string number_str) : type(NUMBER), symbol(NON_SYMBOL),
 	number(str_to_int(number_str)) {}
 Token::Token(const Token &obj) {
 	*this = obj;
@@ -77,7 +77,7 @@ void Token::print() const {
 /*
 static functions
 */
-std::vector<Token> Token::tokenize(std::string in_str) {
+std::vector<Token> Token::tokenize(const std::string in_str) {
 	// input
 	size_t str_len = in_str.size();
 
@@ -133,7 +133,7 @@ std::vector<Token> Token::tokenize(std::string in_str) {
 	return tokens;
 }
 
-TokenSymbol Token::charcter_to_symbol(char c) {
+TokenSymbol Token::charcter_to_symbol(const char c) {
 	assert(std::isdigit(c) == false);
 	switch (c) {
 	case '+':
