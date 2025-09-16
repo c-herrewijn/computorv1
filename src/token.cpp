@@ -71,7 +71,7 @@ std::string Token::to_string() const {
 }
 
 void Token::print() const {
-	std::cout << this->to_string();
+	std::cout << this->to_string() << std::endl;
 }
 
 /*

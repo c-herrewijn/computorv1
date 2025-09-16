@@ -2,15 +2,15 @@ NAME = computor
 CXX = c++
 
 # dev
-# CPP_FLAGS = -Wall -Wextra -Werror -std=c++11 -Wno-unused -Wno-unused-parameter
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++11 -Wno-unused -Wno-unused-parameter
 
-CPP_FLAGS = -Wall -Wextra -Werror -std=c++11
+# CPP_FLAGS = -Wall -Wextra -Werror -std=c++11
 
 SRC_DIR = src
 OBJ_DIR = obj
 INCL_DIR = src/include
 
-SRCS = main.cpp polynomial.cpp token.cpp utils.cpp
+SRCS = main.cpp polynomial.cpp term.cpp token.cpp utils.cpp
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 
