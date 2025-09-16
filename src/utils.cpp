@@ -8,7 +8,8 @@
 int str_to_int(std::string number_str) {
 	for (const char c : number_str) {
 		if (!isdigit(c)) {
-			std::cout << "Error: string should only contain digits: " << number_str << std::endl;
+			std::cout << "Error: string should only contain digits: " << number_str <<
+			          std::endl;
 			exit(EXIT_FAILURE);
 		}
 	}
