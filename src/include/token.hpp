@@ -23,10 +23,10 @@ public:
 
 	TokenType type;
 	TokenSymbol symbol;
-	int number;
+	size_t number;
 
 private:
-	Token(const TokenType t, const TokenSymbol s, const int n);
+	Token(const TokenType t, const TokenSymbol s, const size_t n);
 	static TokenSymbol charcter_to_symbol(const char c);
 };
 

@@ -1,6 +1,9 @@
 #ifndef POLYNOMIAL_H
 # define POLYNOMIAL_H
 
+#include "term.hpp"
+#include <vector>
+
 class Polynomial {
 public:
 	Polynomial();
@@ -8,12 +11,13 @@ public:
 	~Polynomial();
 	Polynomial &operator=(const Polynomial &obj);
 
-	int lhs_const = 0;
-	int lhs_degree_one = 0;
-	int lhs_degree_two = 0;
-	int rhs_const = 0;
-	int rhs_degree_one = 0;
-	int rhs_degree_two = 0;
+	std::vector<Term> lhs_terms;
+	std::vector<Term> rhs_terms;
+
+	// normalized form
+	int constant = 0;
+	int order_one = 0;
+	int order_two = 0;
 
 	double discriminant;
 

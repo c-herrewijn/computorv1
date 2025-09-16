@@ -3,6 +3,6 @@
 
 #include <string>
 
-int str_to_int(std::string number_str);
+size_t str_to_size_t(std::string number_str);
 
 #endif

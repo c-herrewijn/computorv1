@@ -8,12 +8,12 @@
 /*
 constructors
 */
-Token::Token(const TokenType t, const TokenSymbol s, const int n) :
+Token::Token(const TokenType t, const TokenSymbol s, const size_t n) :
 	type(t), symbol(s),	number(n) {}
 Token::Token(const char c) : Token::Token(SYMBOL, charcter_to_symbol(c), -1) {}
 Token::Token(const size_t n): Token::Token(NUMBER, NON_SYMBOL, n) {}
 Token::Token(const std::string number_str) :
-	type(NUMBER), symbol(NON_SYMBOL), number(str_to_int(number_str)) {}
+	type(NUMBER), symbol(NON_SYMBOL), number(str_to_size_t(number_str)) {}
 Token::Token(const Token &obj) {
 	*this = obj;
 }
@@ -52,7 +52,7 @@ std::string Token::to_string() const {
 			str += '=';
 			break;
 		case X_CHAR:
-			str += 'x';
+			str += 'X';
 			break;
 		case NON_SYMBOL:
 			std::cout <<

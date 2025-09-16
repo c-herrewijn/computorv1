@@ -24,8 +24,11 @@ enum TokenizerState {
 	READING_NUMBER
 };
 
-enum ParserState {
+enum TermParserState {
 	READING_NEW_TERM,
+	READING_STAR_SYMBOL,
+	READING_X_CHAR,
+	READING_POWER_SYMBOL,
 	READING_TERM_ORDER,
 };
 
