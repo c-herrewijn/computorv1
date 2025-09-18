@@ -2,9 +2,9 @@ NAME = computor
 CXX = c++
 
 # dev
-CPP_FLAGS = -Wall -Wextra -Werror -std=c++11 -Wno-unused -Wno-unused-parameter
+# CXXFLAGS = -Wall -Wextra -Werror -std=c++11 -Wno-unused -Wno-unused-parameter
 
-# CPP_FLAGS = -Wall -Wextra -Werror -std=c++11
+CXXFLAGS = -Wall -Wextra -Werror -std=c++11
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -16,12 +16,17 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CXX) $(CPP_FLAGS) $(OBJS) -I$(INCL_DIR) -o $(NAME)
-
+# compiling
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(OBJ_DIR)
-	$(CXX) -c $(CPP_FLAGS) $< -I$(INCL_DIR) -o $@
+	$(CXX) -c $(CXXFLAGS) $< -I$(INCL_DIR) -o $@
+
+# linking
+$(NAME): $(OBJS)
+	$(CXX) $(OBJS) -o $(NAME)
+
+debug: fclean
+	$(MAKE) CXXFLAGS="$(CXXFLAGS) -g" $(NAME)
 
 clean:
 	rm -rf $(OBJ_DIR)
@@ -34,4 +39,4 @@ re: fclean all
 format:
 	astyle --options=formatter.txt ./*.cpp,*.hpp
 
-.PHONY: all clean fclean re format
+.PHONY: all debug clean fclean re format
