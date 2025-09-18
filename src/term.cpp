@@ -29,6 +29,10 @@ Term::Term(std::vector<Token> tokens) {
 					std::cout << "minus sign should be first token only" << std::endl;
 					exit(EXIT_FAILURE);
 				}
+				if (tokens.size() == 1) {
+					std::cout << "minus sign should not be the only token" << std::endl;
+					exit(EXIT_FAILURE);
+				}
 				sign = -1;
 			} else if (tokens[i].type == NUMBER) {
 				number = tokens[i].number * sign;
