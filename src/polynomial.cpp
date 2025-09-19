@@ -1,5 +1,6 @@
 #include "polynomial.hpp"
 #include <iostream>
+#include <cassert>
 
 /*
 constructors
@@ -109,7 +110,56 @@ Polynomial &Polynomial::operator=(const Polynomial &obj) {
 /*
 member functions
 */
-void Polynomial::print() {
+void Polynomial::normalize() {
+	if (solution_state == PARSED_INPUT) {
+		for (const Term &t : lhs_terms ) {
+			auto it = normalized_coefficients.find(t.order);
+			if (it == normalized_coefficients.end()) {
+				normalized_coefficients.emplace(t.order, t.number);
+			}
+			else {
+				normalized_coefficients[t.order] += t.number;
+			}
+		}
+		for (const Term &t : rhs_terms ) {
+			auto it = normalized_coefficients.find(t.order);
+			if (it == normalized_coefficients.end()) {
+				normalized_coefficients.emplace(t.order, -1*t.number);
+			}
+			else {
+				normalized_coefficients[t.order] -= t.number;
+			}
+		}
+		solution_state = NORMALIZED;
+	}
+}
+
+void Polynomial::print_normalzed() const {
+	assert(solution_state != PARSED_INPUT);
+	bool first = true;
+	std::cout << "Reduced form: " << std::endl;
+	for (const auto &coeff : normalized_coefficients) {
+		if (first) {
+			std::cout << coeff.second << " * X^" << coeff.first;
+			first = false;
+		}
+		else {
+			if (coeff.second < 0) {
+				std::cout << " - " << coeff.second * -1 << " * X^" << coeff.first;
+			}
+			else {
+				std::cout << " + "<< coeff.second  << " * X^" << coeff.first;
+			}
+		}
+	}
+	if (first == true) {
+		std::cout << "0";
+	}
+	std::cout << " = 0" << std::endl;
+}
+
+
+void Polynomial::print() const {
 	// print lhs
 	std::cout << "terms lhs: " << std::endl;
 	for (Term t : lhs_terms) {

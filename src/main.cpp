@@ -28,5 +28,7 @@ int main(int argc, char *argv[]) {
 	// parsing (tokens to 2 sets of terms)
 	Polynomial polynomial(tokens);
 
-	polynomial.print();
+	// solve
+	polynomial.normalize();
+	polynomial.print_normalzed();
 }
