@@ -38,7 +38,7 @@ Term::Term(std::vector<Token> tokens) {
 				number = tokens[i].number * sign;
 				state = READING_STAR_SYMBOL;
 			} else if (tokens[i].symbol == X_CHAR) {
-				number = 1;
+				number = 1 * sign;
 				order = 1;
 				state = READING_POWER_SYMBOL;
 			} else {
@@ -55,8 +55,8 @@ Term::Term(std::vector<Token> tokens) {
 			}
 			// there should be at least 1 token after the star symbol
 			if (i + 1 == tokens.size()) {
-				std::cout << "token: '" << tokens[i].to_string() <<
-				          "' is not a valid end-token." << std::endl;
+				std::cout << "Invalid input; no valid token found after '" << tokens[i].to_string() << "'" <<
+				          std::endl;
 				exit(EXIT_FAILURE);
 			}
 			state = READING_X_CHAR;
@@ -78,8 +78,8 @@ Term::Term(std::vector<Token> tokens) {
 			}
 			// there should be at least 1 token after the power symbol
 			if (i + 1 == tokens.size()) {
-				std::cout << "token: '" << tokens[i].to_string() <<
-				          "' is not a valid end-token." << std::endl;
+				std::cout << "Invalid input; no valid token found after '" << tokens[i].to_string() << "'" <<
+				          std::endl;
 				exit(EXIT_FAILURE);
 			}
 			state = READING_TERM_ORDER;

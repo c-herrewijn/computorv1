@@ -32,6 +32,10 @@ Polynomial::Polynomial(const std::vector<Token> tokens) {
 		}
 		if (tokens[idx].symbol == MINUS_SYMBOL) {
 			if (idx != 0 && idx != idx_rhs_start) { // minus symbol at start or after '=' is non-splitting
+				if (idx_term_start == idx) {
+					std::cout << "invalid location of '-' symbol" << std::endl;
+					exit(EXIT_FAILURE);
+				}
 				std::vector<Token> term_tokens(std::make_move_iterator(tokens.begin() + idx_term_start),
 				                               std::make_move_iterator(tokens.begin() + idx));
 				parsing_terms->emplace_back(Term{term_tokens});
