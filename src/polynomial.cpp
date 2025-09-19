@@ -112,21 +112,19 @@ member functions
 */
 void Polynomial::normalize() {
 	if (solution_state == PARSED_INPUT) {
-		for (const Term &t : lhs_terms ) {
+		for (const Term &t : lhs_terms) {
 			auto it = normalized_coefficients.find(t.order);
 			if (it == normalized_coefficients.end()) {
 				normalized_coefficients.emplace(t.order, t.number);
-			}
-			else {
+			} else {
 				normalized_coefficients[t.order] += t.number;
 			}
 		}
-		for (const Term &t : rhs_terms ) {
+		for (const Term &t : rhs_terms) {
 			auto it = normalized_coefficients.find(t.order);
 			if (it == normalized_coefficients.end()) {
 				normalized_coefficients.emplace(t.order, -1*t.number);
-			}
-			else {
+			} else {
 				normalized_coefficients[t.order] -= t.number;
 			}
 		}
@@ -142,13 +140,11 @@ void Polynomial::print_normalzed() const {
 		if (first) {
 			std::cout << coeff.second << " * X^" << coeff.first;
 			first = false;
-		}
-		else {
+		} else {
 			if (coeff.second < 0) {
 				std::cout << " - " << coeff.second * -1 << " * X^" << coeff.first;
-			}
-			else {
-				std::cout << " + "<< coeff.second  << " * X^" << coeff.first;
+			} else {
+				std::cout << " + "<< coeff.second << " * X^" << coeff.first;
 			}
 		}
 	}
@@ -157,7 +153,6 @@ void Polynomial::print_normalzed() const {
 	}
 	std::cout << " = 0" << std::endl;
 }
-
 
 void Polynomial::print() const {
 	// print lhs

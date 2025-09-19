@@ -16,11 +16,10 @@ public:
 
 	void normalize();
 	void print_normalzed() const; // TODO: formating mandatory part
-	void print_normalzed_simplified() const;  // TODO: formatting bonus
+	void print_normalzed_simplified() const; // TODO: formatting bonus
 
 	void solve(); // TODO:implement abc-formula
 	void print() const; // debug
-
 
 private:
 	// state
