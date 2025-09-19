@@ -32,4 +32,10 @@ enum TermParserState {
 	READING_TERM_ORDER,
 };
 
+enum PolynomialState {
+	PARSED_INPUT,
+	NORMALIZED,
+	SOLVED
+};
+
 #endif

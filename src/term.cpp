@@ -91,11 +91,6 @@ Term::Term(std::vector<Token> tokens) {
 				exit(EXIT_FAILURE);
 			}
 			order = tokens[i].number;
-			if (order > 2) {
-				std::cout << "order (" << tokens[i].to_string() <<
-				          ") too high, max 2nd order equations are supported! token: " << std::endl;
-				exit(EXIT_FAILURE);
-			}
 			if (tokens.size() > i + 1) {
 				std::cout << "Too many tokens (" << std::to_string(tokens.size()) <<
 				          ") to create a term!" << std::endl;
