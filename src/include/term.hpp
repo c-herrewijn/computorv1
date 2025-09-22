@@ -9,7 +9,7 @@
 class Term {
 public:
 	Term() = delete;
-	Term(int number, int order);
+	Term(double number, size_t order);
 	Term(const Term &obj);
 	Term(std::vector<Token> tokens);
 	~Term();
@@ -18,8 +18,8 @@ public:
 	void print() const;
 	std::string to_string() const;
 
-	int number;
-	int order;
+	double number;
+	size_t order; // todo: order can not be negative
 
 private:
 

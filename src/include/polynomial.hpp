@@ -32,7 +32,7 @@ private:
 	std::vector<Term> rhs_terms;
 
 	// normalized form: key=order; value=coefficient
-	std::map<size_t, int> normalized_coefficients; // TODO: support decimal numbers!
+	std::map<size_t, double> normalized_coefficients;
 
 	// solution
 	double discriminant;

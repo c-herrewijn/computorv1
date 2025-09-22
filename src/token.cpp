@@ -8,12 +8,12 @@
 /*
 constructors
 */
-Token::Token(const TokenType t, const TokenSymbol s, const size_t n) :
+Token::Token(const TokenType t, const TokenSymbol s, const double n) :
 	type(t), symbol(s),	number(n) {}
 Token::Token(const char c) : Token::Token(SYMBOL, charcter_to_symbol(c), -1) {}
-Token::Token(const size_t n): Token::Token(NUMBER, NON_SYMBOL, n) {}
+Token::Token(const double n): Token::Token(NUMBER, NON_SYMBOL, n) {}
 Token::Token(const std::string number_str) :
-	type(NUMBER), symbol(NON_SYMBOL), number(str_to_size_t(number_str)) {}
+	type(NUMBER), symbol(NON_SYMBOL), number(str_to_double(number_str)) {}
 Token::Token(const Token &obj) {
 	*this = obj;
 }
@@ -65,7 +65,7 @@ std::string Token::to_string() const {
 		}
 	}
 	if (type == NUMBER) {
-		str = std::to_string(number);
+		str = double_to_str(number);
 	}
 	return str;
 }
@@ -95,7 +95,7 @@ std::vector<Token> Token::tokenize(const std::string in_str) {
 		switch (state) {
 		case NEW_TOKEN:
 			if (c == ' ') {}
-			else if (std::isdigit(c)) {
+			else if (std::isdigit(c) || c == '.') {
 				idx_num_start = idx_str;
 				idx_num_length++;
 				state = READING_NUMBER;
@@ -109,7 +109,7 @@ std::vector<Token> Token::tokenize(const std::string in_str) {
 				tokens.emplace_back(Token(num_str));
 				idx_num_length=0;
 				state = NEW_TOKEN;
-			} else if (std::isdigit(c)) {
+			} else if (std::isdigit(c) || c == '.') {
 				idx_num_length++;
 			} else {
 				std::string num_str{in_str, idx_num_start, idx_num_length};

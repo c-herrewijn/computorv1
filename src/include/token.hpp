@@ -10,7 +10,7 @@ class Token {
 public:
 	Token() = delete;
 	Token(const char c);
-	Token(const size_t n);
+	Token(const double n);
 	Token(const std::string number_str);
 	Token(const Token &obj);
 
@@ -23,10 +23,10 @@ public:
 
 	TokenType type;
 	TokenSymbol symbol;
-	size_t number;
+	double number;
 
 private:
-	Token(const TokenType t, const TokenSymbol s, const size_t n);
+	Token(const TokenType t, const TokenSymbol s, const double n);
 	static TokenSymbol charcter_to_symbol(const char c);
 };
 

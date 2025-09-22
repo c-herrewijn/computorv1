@@ -3,6 +3,7 @@
 
 #include <string>
 
-size_t str_to_size_t(std::string number_str);
+double str_to_double(std::string number_str);
+std::string double_to_str(double d);
 
 #endif
