@@ -17,6 +17,7 @@ public:
 	void normalize();
 	void print_normalzed() const; // TODO: formating mandatory part
 	void print_normalzed_simplified() const; // TODO: formatting bonus
+	size_t get_order() const;
 
 	void solve(); // TODO:implement abc-formula
 	void print() const; // debug
@@ -31,7 +32,7 @@ private:
 	std::vector<Term> rhs_terms;
 
 	// normalized form: key=order; value=coefficient
-	std::map<int, int> normalized_coefficients; // TODO: support decimal numbers!
+	std::map<size_t, int> normalized_coefficients; // TODO: support decimal numbers!
 
 	// solution
 	double discriminant;

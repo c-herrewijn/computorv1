@@ -134,26 +134,66 @@ void Polynomial::normalize() {
 
 void Polynomial::print_normalzed() const {
 	assert(solution_state != PARSED_INPUT);
-	bool first = true;
-	std::cout << "Reduced form: " << std::endl;
-	for (const auto &coeff : normalized_coefficients) {
-		if (first) {
-			std::cout << coeff.second << " * X^" << coeff.first;
-			first = false;
-		} else {
-			if (coeff.second < 0) {
-				std::cout << " - " << coeff.second * -1 << " * X^" << coeff.first;
+	std::cout << "Standard reduced form: " << std::endl;
+	for (size_t idx=0; idx<normalized_coefficients.rbegin()->first + 1; idx++) {
+		if (normalized_coefficients.find(idx) != normalized_coefficients.end()) {
+			if (idx==0) {
+				std::cout << normalized_coefficients.at(idx) << " * X^" << idx;
 			} else {
-				std::cout << " + "<< coeff.second << " * X^" << coeff.first;
+				if (normalized_coefficients.at(idx) < 0) {
+					std::cout << " - " << normalized_coefficients.at(idx) * -1 << " * X^" << idx;
+				} else {
+					std::cout << " + "<< normalized_coefficients.at(idx) << " * X^" << idx;
+				}
+			}
+		} else {
+			if (idx==0) {
+				std::cout << "0 * X^" << idx;
+			} else {
+				std::cout << " + 0 * X^" << idx;
 			}
 		}
-	}
-	if (first == true) {
-		std::cout << "0";
 	}
 	std::cout << " = 0" << std::endl;
 }
 
+void Polynomial::print_normalzed_simplified() const {
+	assert(solution_state != PARSED_INPUT);
+	bool first = true;
+	std::cout << "Standard simplified form: " << std::endl;
+	for (const auto &coeff : normalized_coefficients) {
+		if (first) {
+			std::cout << coeff.second;
+			first = false;
+		} else {
+			if (coeff.second < 0) {
+				std::cout << " - " << coeff.second * -1;
+			} else {
+				std::cout << " + "<< coeff.second;
+			}
+		}
+		if (coeff.first == 1) {
+			std::cout << " * X";
+		}
+		if (coeff.first > 1) {
+			std::cout << " * X^" << coeff.first;
+		}
+	}
+	std::cout << " = 0" << std::endl;
+}
+
+size_t Polynomial::get_order() const {
+	assert(solution_state != PARSED_INPUT);
+	return normalized_coefficients.rbegin()->first;
+}
+
+void Polynomial::solve() {
+	// todo
+}
+
+/*
+debug
+*/
 void Polynomial::print() const {
 	// print lhs
 	std::cout << "terms lhs: " << std::endl;
