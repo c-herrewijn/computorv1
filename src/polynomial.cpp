@@ -175,25 +175,26 @@ void Polynomial::print_normalzed_simplified() const {
 	assert(solution_state != PARSED_INPUT);
 	bool first = true;
 	std::cout << "Standard simplified form: " << std::endl;
-	for (const auto &coeff : normalized_coefficients) {
-		if (coeff.second == 0) {
+	for (auto coeff=normalized_coefficients.rbegin(); coeff != normalized_coefficients.rend();
+	        coeff++) {
+		if (coeff->second == 0) {
 			continue;
 		}
 		if (first) {
-			std::cout << double_to_str(coeff.second);
+			std::cout << double_to_str(coeff->second);
 			first = false;
 		} else {
-			if (coeff.second < 0) {
-				std::cout << " - " << double_to_str(-1 * coeff.second);
+			if (coeff->second < 0) {
+				std::cout << " - " << double_to_str(-1 * coeff->second);
 			} else {
-				std::cout << " + " << double_to_str(coeff.second);
+				std::cout << " + " << double_to_str(coeff->second);
 			}
 		}
-		if (coeff.first == 1) {
+		if (coeff->first == 1) {
 			std::cout << "*X";
 		}
-		if (coeff.first > 1) {
-			std::cout << "*X^" << coeff.first;
+		if (coeff->first > 1) {
+			std::cout << "*X^" << coeff->first;
 		}
 	}
 	if (first == true) {
@@ -221,12 +222,15 @@ void Polynomial::solve() {
 	double b = normalized_coefficients[1];
 	double c = normalized_coefficients[0];
 
+	this->print_normalzed();
 	if (order == 0) {
+		this->print_normalzed_simplified();
+		std::cout << "Polynomial degree: " << order << std::endl;
 		if (has_indeterminate == false) {
 			if (c != 0) {
-				std::cout << "invalid equation, no solution possible" << std::endl;
+				std::cout << "Invalid equation, no solution possible" << std::endl;
 			} else {
-				std::cout << "no indeternimate to solve, but statement is valid!" << std::endl;
+				std::cout << "No indeternimate to solve, but statement is valid!" << std::endl;
 			}
 		} else {
 			if (c != 0) {
@@ -237,13 +241,44 @@ void Polynomial::solve() {
 		}
 	}
 	if (order == 1) {
-		std::cout << "Solving 1st order equation ..." << std::endl;
+		this->print_normalzed_simplified();
+		std::cout << "Polynomial degree: " << order << std::endl;
+		std::cout << "Solving ..." << std::endl;
 		std::cout << b << " * X = " << (-1*c) << std::endl;
-		std::cout << "X = " << (-1*c) << " / " << b << std::endl;
+		std::cout << "X = " << (-1*c) << " / " << b << std::endl; // todo: calc irreducible fraction
 		std::cout << "X = " << (-1*c) / b << std::endl;
 	}
 	if (order == 2) {
+		std::cout << "Polynomial degree: " << order << std::endl;
+		// std::cout << "\nstep 1: determine A, B, and C\n" << std::endl;
+		std::cout << "\nstep 1:" << std::endl;
+		this->print_normalzed_simplified();
+		std::cout << "\nstep 2: determine A, B and C using ABC-formula:\nA*X^2 + B*X + C = 0" << std::endl;
+		std::cout << "A = " << a << std::endl;
+		std::cout << "B = " << b << std::endl;
+		std::cout << "C = " << c << std::endl;
+
+		std::cout << "\nstep 3: calculate 'Discriminant'" << std::endl;
+		std::cout << "  Discriminant = B^2 - 4 * A * C" << std::endl;
+		std::cout << "  Discriminant = " << b << "^2 - 4 * " << a << " * " << c << std::endl;
+		double discriminant = b*b - 4 * a*c;
+		std::cout << "  Discriminant = " << discriminant << std::endl;
+
+		if (discriminant == 0) {
+			std::cout << "general solution formula for discriminant = 0:" << std::endl;
+			std::cout << "  X = (-1 * B) / (2 * A)" << std::endl;
+			std::cout << "substituting A, B and C:" << std::endl;
+			std::cout << "  X = (-1 * " << b << ") / (2 * " << a << ")" << std::endl;
+			std::cout << "  X = " << (-1*b) << " / " << (2*a) << std::endl;
+			std::cout << "  X = " << (-1*b) / (2*a) << std::endl;
+		}
+
 		// todo
+		// discriminant < 0
+		// discriminant > 0
+	}
+	if (order > 2) {
+		std::cout << "The polynomial degree is strictly greater than 2, I can't solve." << std::endl;
 	}
 }
 

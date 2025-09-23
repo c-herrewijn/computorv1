@@ -28,15 +28,7 @@ int main(int argc, char *argv[]) {
 	// parsing (tokens to 2 sets of terms)
 	Polynomial polynomial(tokens);
 
-	// normalize input
+	// normalize and solve
 	polynomial.normalize();
-	polynomial.print_normalzed();
-	polynomial.print_normalzed_simplified();
-
-	// solve
-	if (polynomial.get_order() > 2) {
-		std::cout << "The polynomial degree is strictly greater than 2, I can't solve." << std::endl;
-		exit(EXIT_SUCCESS);
-	}
 	polynomial.solve();
 }
