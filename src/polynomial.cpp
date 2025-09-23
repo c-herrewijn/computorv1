@@ -224,29 +224,27 @@ void Polynomial::solve() {
 	if (order == 0) {
 		if (has_indeterminate == false) {
 			if (c != 0) {
-				std::cout << "invalid statement, no solution possible" << std::endl;
-			}
-			else {
+				std::cout << "invalid equation, no solution possible" << std::endl;
+			} else {
 				std::cout << "no indeternimate to solve, but statement is valid!" << std::endl;
 			}
-		}
-		else {
+		} else {
 			if (c != 0) {
 				std::cout << "No solution for X." << std::endl;
-			}
-			else {
+			} else {
 				std::cout << "X can be any number" << std::endl;
 			}
 		}
 	}
 	if (order == 1) {
-
+		std::cout << "Solving 1st order equation ..." << std::endl;
+		std::cout << b << " * X = " << (-1*c) << std::endl;
+		std::cout << "X = " << (-1*c) << " / " << b << std::endl;
+		std::cout << "X = " << (-1*c) / b << std::endl;
 	}
-
-
-	// double a = 0;
-	// double b = 0;
-	// double c = 0;
+	if (order == 2) {
+		// todo
+	}
 }
 
 /*
