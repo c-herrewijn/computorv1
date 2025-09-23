@@ -140,7 +140,7 @@ void Polynomial::normalize() {
 void Polynomial::print_normalzed() const {
 	assert(solution_state != PARSED_INPUT);
 	std::cout << "Standard reduced form: " << std::endl;
-	for (size_t idx=0; idx<normalized_coefficients.rbegin()->first + 1; idx++) {
+	for (size_t idx=0; idx < this->get_order() + 1; idx++) {
 		if (normalized_coefficients.find(idx) != normalized_coefficients.end()) {
 			std::string nr_str = double_to_str(normalized_coefficients.at(idx));
 			if (idx==0) {
@@ -183,10 +183,10 @@ void Polynomial::print_normalzed_simplified() const {
 			}
 		}
 		if (coeff.first == 1) {
-			std::cout << " * X";
+			std::cout << "*X";
 		}
 		if (coeff.first > 1) {
-			std::cout << " * X^" << coeff.first;
+			std::cout << "*X^" << coeff.first;
 		}
 	}
 	if (first == true) {
@@ -197,7 +197,12 @@ void Polynomial::print_normalzed_simplified() const {
 
 size_t Polynomial::get_order() const {
 	assert(solution_state != PARSED_INPUT);
-	return normalized_coefficients.rbegin()->first;
+	for (auto iter=normalized_coefficients.rbegin(); iter != normalized_coefficients.rend(); iter++) {
+		if (iter->second != 0) {
+			return iter->first;
+		}
+	}
+	return 0;
 }
 
 void Polynomial::solve() {
