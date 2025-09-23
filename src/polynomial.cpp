@@ -27,8 +27,9 @@ Polynomial::Polynomial(const std::vector<Token> tokens) {
 				          std::endl;
 				exit(EXIT_FAILURE);
 			}
-			std::vector<Token> term_tokens(std::make_move_iterator(tokens.begin() + idx_term_start),
-			                               std::make_move_iterator(tokens.begin() + idx));
+			std::vector<Token> term_tokens(
+			    std::make_move_iterator(tokens.begin() + static_cast<int>(idx_term_start)),
+			    std::make_move_iterator(tokens.begin() + static_cast<int>(idx)));
 			parsing_terms->emplace_back(Term{term_tokens});
 			idx_term_start = idx + 1; // plus symbol is NOT part of the next Term
 		}
@@ -38,8 +39,9 @@ Polynomial::Polynomial(const std::vector<Token> tokens) {
 					std::cout << "invalid location of '-' symbol" << std::endl;
 					exit(EXIT_FAILURE);
 				}
-				std::vector<Token> term_tokens(std::make_move_iterator(tokens.begin() + idx_term_start),
-				                               std::make_move_iterator(tokens.begin() + idx));
+				std::vector<Token> term_tokens(
+				    std::make_move_iterator(tokens.begin() + static_cast<int>(idx_term_start)),
+				    std::make_move_iterator(tokens.begin() + static_cast<int>(idx)));
 				parsing_terms->emplace_back(Term{term_tokens});
 				idx_term_start = idx; // minus symbol IS part of the next Term
 			}
@@ -61,8 +63,9 @@ Polynomial::Polynomial(const std::vector<Token> tokens) {
 				exit(EXIT_FAILURE);
 			}
 
-			std::vector<Token> term_tokens(std::make_move_iterator(tokens.begin() + idx_term_start),
-			                               std::make_move_iterator(tokens.begin() + idx));
+			std::vector<Token> term_tokens(
+			    std::make_move_iterator(tokens.begin() + static_cast<int>(idx_term_start)),
+			    std::make_move_iterator(tokens.begin() + static_cast<int>(idx)));
 			parsing_terms->emplace_back(Term{term_tokens});
 			idx_term_start = idx + 1; // equal symbol is NOT part of the next Term
 			idx_rhs_start = idx + 1;
@@ -80,8 +83,9 @@ Polynomial::Polynomial(const std::vector<Token> tokens) {
 				std::cout << "Error parsing equation: missing '=' symbol! " << std::endl;
 				exit(EXIT_FAILURE);
 			} else {
-				std::vector<Token> term_tokens(std::make_move_iterator(tokens.begin() + idx_term_start),
-				                               std::make_move_iterator(tokens.end()));
+				std::vector<Token> term_tokens(
+				    std::make_move_iterator(tokens.begin() +static_cast<int>(idx_term_start)),
+				    std::make_move_iterator(tokens.end()));
 				parsing_terms->emplace_back(Term{term_tokens});
 			}
 		}

@@ -29,6 +29,10 @@ double str_to_double(std::string number_str) {
 		          << ")" << std::endl;
 		exit(EXIT_FAILURE);
 	}
+	if (number_str == ".") {
+		std::cout << "invalid number: '" << number_str << "'" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	double num = std::stod(number_str);
 	if (num > std::numeric_limits<int>::max()) {
 		std::cout << "number in equation too large: '" << number_str << "'" << std::endl;

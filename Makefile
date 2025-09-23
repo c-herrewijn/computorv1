@@ -2,9 +2,8 @@ NAME = computor
 CXX = c++
 
 # dev
-# CXXFLAGS = -Wall -Wextra -Werror -std=c++11 -Wno-unused -Wno-unused-parameter
-
-CXXFLAGS = -Wall -Wextra -Werror -std=c++11
+# CXXFLAGS = -Wall -Wextra -Werror -Wconversion -std=c++11 -Wno-unused -Wno-unused-parameter
+CXXFLAGS = -Wall -Wextra -Werror -Wconversion -std=c++11
 
 SRC_DIR = src
 OBJ_DIR = obj

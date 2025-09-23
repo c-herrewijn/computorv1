@@ -77,8 +77,8 @@ Term::Term(std::vector<Token> tokens) {
 			}
 			// there should be at least 1 token after the power symbol
 			if (idx + 1 == tokens.size()) {
-				std::cout << "Invalid input; no valid token found after '" << tokens[idx].to_string() << "'" <<
-				          std::endl;
+				std::cout << "Invalid input; no valid token found after '" << tokens[idx].to_string() <<
+				          "'. Exponents should be positive integers!" << std::endl;
 				exit(EXIT_FAILURE);
 			}
 			state = READING_TERM_ORDER;
@@ -88,7 +88,12 @@ Term::Term(std::vector<Token> tokens) {
 				std::cout << "invalid token: '" << tokens[idx].to_string() << "'; expected a number" << std::endl;
 				exit(EXIT_FAILURE);
 			}
-			order = tokens[idx].number;
+			order = static_cast<size_t>(tokens[idx].number);
+			if (static_cast<double>(order) != tokens[idx].number) {
+				std::cout << "Invalid exponent: " << tokens[idx].number << "; only integer exponents are supported"
+				          << std::endl;
+				exit(EXIT_FAILURE);
+			}
 			if (tokens.size() > idx + 1) {
 				std::cout << "Too many tokens (" << tokens.size() << ") to create a term!" << std::endl;
 				exit(EXIT_FAILURE);
