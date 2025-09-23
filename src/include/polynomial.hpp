@@ -15,8 +15,8 @@ public:
 	Polynomial &operator=(const Polynomial &obj);
 
 	void normalize();
-	void print_normalzed() const; // TODO: formating mandatory part
-	void print_normalzed_simplified() const; // TODO: formatting bonus
+	void print_normalzed() const;
+	void print_normalzed_simplified() const;
 	size_t get_order() const;
 
 	void solve(); // TODO:implement abc-formula
@@ -25,7 +25,7 @@ public:
 private:
 	// state
 	PolynomialState solution_state = PARSED_INPUT;
-	bool has_indeterminate = false; // TODO: special output for equations without 'X'
+	bool has_indeterminate = false;
 
 	// parsed input
 	std::vector<Term> lhs_terms;

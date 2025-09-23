@@ -135,6 +135,13 @@ void Polynomial::normalize() {
 		}
 		solution_state = NORMALIZED;
 	}
+	// make sure coefficients a, b, and c are always set
+	for (size_t order=0; order<=2; order++) {
+		auto it = normalized_coefficients.find(order);
+		if (it == normalized_coefficients.end()) {
+			normalized_coefficients.emplace(order, 0);
+		}
+	}
 }
 
 void Polynomial::print_normalzed() const {
@@ -206,7 +213,40 @@ size_t Polynomial::get_order() const {
 }
 
 void Polynomial::solve() {
-	// todo
+	assert(solution_state != PARSED_INPUT);
+	size_t order = this->get_order();
+
+	// coeffs for abc-formula
+	double a = normalized_coefficients[2];
+	double b = normalized_coefficients[1];
+	double c = normalized_coefficients[0];
+
+	if (order == 0) {
+		if (has_indeterminate == false) {
+			if (c != 0) {
+				std::cout << "invalid statement, no solution possible" << std::endl;
+			}
+			else {
+				std::cout << "no indeternimate to solve, but statement is valid!" << std::endl;
+			}
+		}
+		else {
+			if (c != 0) {
+				std::cout << "No solution for X." << std::endl;
+			}
+			else {
+				std::cout << "X can be any number" << std::endl;
+			}
+		}
+	}
+	if (order == 1) {
+
+	}
+
+
+	// double a = 0;
+	// double b = 0;
+	// double c = 0;
 }
 
 /*
