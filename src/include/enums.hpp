@@ -35,7 +35,6 @@ enum TermParserState {
 enum PolynomialState {
 	PARSED_INPUT,
 	NORMALIZED,
-	SOLVED
 };
 
 #endif

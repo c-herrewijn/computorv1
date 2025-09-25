@@ -106,7 +106,11 @@ Polynomial::~Polynomial() {}
 operators
 */
 Polynomial &Polynomial::operator=(const Polynomial &obj) {
-	this->discriminant = obj.discriminant;
+	this->solution_state = obj.solution_state;
+	this->has_indeterminate = obj.has_indeterminate;
+	this->lhs_terms = obj.lhs_terms;
+	this->rhs_terms = obj.rhs_terms;
+	this->normalized_coefficients = obj.normalized_coefficients;
 
 	// todo: others
 
@@ -326,20 +330,3 @@ void Polynomial::solve() {
 		std::cout << "The polynomial degree is strictly greater than 2, I can't solve." << std::endl;
 	}
 }
-
-/*
-debug
-*/
-void Polynomial::print() const {
-	// print lhs
-	std::cout << "terms lhs: " << std::endl;
-	for (Term t : lhs_terms) {
-		t.print();
-	}
-
-	// print rhs
-	std::cout << "terms rhs: " << std::endl;
-	for (Term t : rhs_terms) {
-		t.print();
-	}
-};

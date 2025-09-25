@@ -18,9 +18,7 @@ public:
 	void print_normalzed() const;
 	void print_normalzed_simplified() const;
 	size_t get_order() const;
-
 	void solve();
-	void print() const; // debug
 
 private:
 	// state
@@ -33,10 +31,6 @@ private:
 
 	// normalized form: key=order; value=coefficient
 	std::map<size_t, double> normalized_coefficients;
-
-	// solution
-	double discriminant;
-	std::vector<double> solutions;
 };
 
 #endif
