@@ -2,6 +2,7 @@
 #include "utils.hpp"
 #include <iostream>
 #include <cassert>
+#include <cmath>
 
 /*
 constructors
@@ -146,7 +147,7 @@ void Polynomial::normalize() {
 
 void Polynomial::print_normalzed() const {
 	assert(solution_state != PARSED_INPUT);
-	std::cout << "Standard reduced form: " << std::endl;
+	std::cout << "\nStandard reduced form: " << std::endl;
 	for (size_t idx=0; idx < this->get_order() + 1; idx++) {
 		if (normalized_coefficients.find(idx) != normalized_coefficients.end()) {
 			std::string nr_str = double_to_str(normalized_coefficients.at(idx));
@@ -168,7 +169,7 @@ void Polynomial::print_normalzed() const {
 			}
 		}
 	}
-	std::cout << " = 0" << std::endl;
+	std::cout << " = 0\n" << std::endl;
 }
 
 void Polynomial::print_normalzed_simplified() const {
@@ -194,7 +195,7 @@ void Polynomial::print_normalzed_simplified() const {
 			std::cout << "*X";
 		}
 		if (coeff->first > 1) {
-			std::cout << "*X^" << coeff->first;
+			std::cout << " * X^" << coeff->first;
 		}
 	}
 	if (first == true) {
@@ -223,9 +224,10 @@ void Polynomial::solve() {
 	double c = normalized_coefficients[0];
 
 	this->print_normalzed();
+	std::cout << "Polynomial degree: " << order << std::endl;
+	std::cout << "Solving ..." << std::endl;
 	if (order == 0) {
 		this->print_normalzed_simplified();
-		std::cout << "Polynomial degree: " << order << std::endl;
 		if (has_indeterminate == false) {
 			if (c != 0) {
 				std::cout << "Invalid equation, no solution possible" << std::endl;
@@ -242,28 +244,27 @@ void Polynomial::solve() {
 	}
 	if (order == 1) {
 		this->print_normalzed_simplified();
-		std::cout << "Polynomial degree: " << order << std::endl;
-		std::cout << "Solving ..." << std::endl;
 		std::cout << b << " * X = " << (-1*c) << std::endl;
 		std::cout << "X = " << (-1*c) << " / " << b << std::endl; // todo: calc irreducible fraction
 		std::cout << "X = " << (-1*c) / b << std::endl;
 	}
 	if (order == 2) {
-		std::cout << "Polynomial degree: " << order << std::endl;
-		// std::cout << "\nstep 1: determine A, B, and C\n" << std::endl;
 		std::cout << "\nstep 1:" << std::endl;
 		this->print_normalzed_simplified();
+
 		std::cout << "\nstep 2: determine A, B and C using ABC-formula:\nA*X^2 + B*X + C = 0" << std::endl;
 		std::cout << "A = " << a << std::endl;
 		std::cout << "B = " << b << std::endl;
 		std::cout << "C = " << c << std::endl;
 
 		std::cout << "\nstep 3: calculate 'Discriminant'" << std::endl;
-		std::cout << "  Discriminant = B^2 - 4 * A * C" << std::endl;
-		std::cout << "  Discriminant = " << b << "^2 - 4 * " << a << " * " << c << std::endl;
-		double discriminant = b*b - 4 * a*c;
-		std::cout << "  Discriminant = " << discriminant << std::endl;
+		std::cout << "Discriminant = B^2 - 4 * A * C" << std::endl;
+		std::cout << "Discriminant = " << b << "^2 - 4 * " << a << " * " << c << std::endl;
+		std::cout << "Discriminant = " << b *b << " - " << 4*a *c << std::endl;
+		double discriminant = b*b - 4*a*c;
+		std::cout << "Discriminant = " << discriminant << std::endl;
 
+		std::cout << "\nstep 4: ";
 		if (discriminant == 0) {
 			std::cout << "general solution formula for discriminant = 0:" << std::endl;
 			std::cout << "  X = (-1 * B) / (2 * A)" << std::endl;
@@ -272,10 +273,54 @@ void Polynomial::solve() {
 			std::cout << "  X = " << (-1*b) << " / " << (2*a) << std::endl;
 			std::cout << "  X = " << (-1*b) / (2*a) << std::endl;
 		}
-
-		// todo
-		// discriminant < 0
-		// discriminant > 0
+		if (discriminant > 0) {
+			std::cout << "general solution formula for discriminant > 0:" << std::endl;
+			std::cout << "two solutions:" << std::endl;
+			std::cout << "  X = (-1 * B + sqrt(discriminant)) / (2 * A)" << std::endl;
+			std::cout << "or: " << std::endl;
+			std::cout << "  X = (-1 * B - sqrt(discriminant)) / (2 * A)" << std::endl;
+			std::cout << "substituting A and B:" << std::endl;
+			std::cout << "solution 1:" << std::endl;
+			std::cout << "  X = (-1 * " << b << " + sqrt(" << discriminant << ")) / (2 * " << a <<")"
+			          << std::endl;
+			std::cout << "  X = (" << (-1 * b) << " + " << std::sqrt(discriminant) << ") / " <<
+			          (2 * a) << std::endl;
+			std::cout << "  X = " << (-1 * b) + std::sqrt(discriminant) << " / " << (2 * a) << std::endl;
+			std::cout << "  X = " << ((-1 * b) + std::sqrt(discriminant)) / (2 * a) << std::endl;
+			std::cout << "solution 2:" << std::endl;
+			std::cout << "  X = (-1 * " << b << " - sqrt(" << discriminant << ")) / (2 * " << a << ")"
+			          << std::endl;
+			std::cout << "  X = (" << (-1 * b) << " - " << std::sqrt(discriminant) << ") / "
+			          << (2 * a) << std::endl;
+			std::cout << "  X = " << (-1 * b) - std::sqrt(discriminant) << " / " << (2 * a) << std::endl;
+			std::cout << "  X = " << ((-1 * b) - std::sqrt(discriminant)) / (2 * a) << std::endl;
+		}
+		if (discriminant < 0) {
+			std::cout << "general solution formula for discriminant < 0:" << std::endl;
+			std::cout << "two complex solutions:" << std::endl;
+			std::cout << "  X = (-1 * B) / (2 * A) + i * sqrt(-1 * discriminant) / (2 * A)" << std::endl;
+			std::cout << "or" << std::endl;
+			std::cout << "  X = (-1 * B) / (2 * A) - i * sqrt(-1 * discriminant) / (2 * A)" << std::endl;
+			std::cout << "substituting A and B:" << std::endl;
+			std::cout << "solution 1:" << std::endl;
+			std::cout << "  X = (-1 * " << b << ") / (2 * " << a << ") + i * sqrt(-1 * "
+			          << discriminant << ") / (2 * " << a << ")" << std::endl;
+			std::cout << "  X = " << -1 * b << " / " << 2 * a << " + i * sqrt(" <<
+			          -1 * discriminant << ") / " << 2 * a << std::endl;
+			std::cout << "  X = " << -1 * b / (2 * a) << " + i * "
+			          << std::sqrt(-1 * discriminant) << " / " << 2 * a << std::endl;
+			std::cout << "  X = " << -1 * b / (2 * a) << " + i * "
+			          << std::sqrt(-1 * discriminant) / (2 * a) << std::endl;
+			std::cout << "solution 2:" << std::endl;
+			std::cout << "  X = (-1 * " << b << ") / (2 * " << a << ") - i * sqrt(-1 * "
+			          << discriminant << ") / (2 * " << a << ")" << std::endl;
+			std::cout << "  X = " << -1 * b << " / " << 2 * a << " - i * sqrt(" << -1 * discriminant
+			          << ") / " << 2 * a << std::endl;
+			std::cout << "  X = " << -1 * b / (2 * a) << " - i * "
+			          << std::sqrt(-1 * discriminant) << " / " << 2 * a << std::endl;
+			std::cout << "  X = " << -1 * b / (2 * a) << " - i * "
+			          << std::sqrt(-1 * discriminant) / (2 * a) << std::endl;
+		}
 	}
 	if (order > 2) {
 		std::cout << "The polynomial degree is strictly greater than 2, I can't solve." << std::endl;

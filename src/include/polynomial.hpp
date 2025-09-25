@@ -19,7 +19,7 @@ public:
 	void print_normalzed_simplified() const;
 	size_t get_order() const;
 
-	void solve(); // TODO:implement abc-formula
+	void solve();
 	void print() const; // debug
 
 private:

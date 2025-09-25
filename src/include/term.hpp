@@ -19,7 +19,7 @@ public:
 	std::string to_string() const;
 
 	double number;
-	size_t order; // todo: order can not be negative
+	size_t order;
 
 private:
 
