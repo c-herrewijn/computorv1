@@ -36,6 +36,6 @@ fclean: clean
 re: fclean all
 
 format:
-	astyle --options=formatter.txt ./*.cpp,*.hpp
+	astyle --options=formatter.cfg ./*.cpp,*.hpp
 
 .PHONY: all debug clean fclean re format
